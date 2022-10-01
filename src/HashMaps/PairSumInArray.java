@@ -18,7 +18,7 @@ public class PairSumInArray {
 		for(int i = 0 ; i<arr.length ; i++) {
 			if(arr[i]==s-arr[i]) {
 				count += m.get(s-arr[i])-1;
-			}else if(m.containsKey(s-arr[i])  ) {
+			}else if(m.containsKey(s-arr[i])) {
 				count +=m.get(s-arr[i]);
 			}
 		}
