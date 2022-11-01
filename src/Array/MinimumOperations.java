@@ -1,54 +1,41 @@
 package Array;
 
+import java.util.HashMap;
+import java.util.Set;
+
 public class MinimumOperations {
 
-	public static int minimumOperation(int[] arr, int n) {
-		if(arr.length <=1) {
-			return 0;
-		}
-		int minCount = Integer.MAX_VALUE;
-		for(int i = 0; i< arr.length ; i++) {
-			int num = arr[i];
-			int newCount=0;
-			for(int j = 0; j< arr.length ; j++) {
-				for(int k = 0; k<arr.length ; k++) {
-					
-					if(j == k) {
-						continue;
-					}
-					
-					if(arr[j]+arr[k] == num) {
-						newCount++;
-					}else if(arr[j]-arr[k] == num) {
-						newCount++;
-					}else if(arr[k]-arr[j] == num) {
-						newCount++;
-					}else if(arr[j]*arr[k] == num) {
-						newCount++;
-					}
-					
-					if(arr[j] != 1 && arr[k] != 1) {
-						if(arr[j]/arr[k] == num) {
-							newCount++;
-						}else if(arr[k]/arr[j] == num) {
-							newCount++;
-						}
-					}
-					
-				}
-			}
-			
-			if(newCount < minCount) {
-				minCount = newCount;
-			}
-			
-		}
-		
-		return minCount;
+	public static int minimumOperation(int[] arr,int n) {
+		HashMap<Integer, Integer> hash = new HashMap<Integer,
+				Integer>();
+
+		for (int i=0; i<n; i++)
+			if(hash.containsKey(arr[i]))
+				hash.put(arr[i], hash.get(arr[i])+1);
+			else hash.put(arr[i], 1);
+
+		// find the max frequency
+		int max_count = 0;
+		Set<Integer> s = hash.keySet();
+
+		for (int i : s)
+			if (max_count < hash.get(i))
+				max_count = hash.get(i);
+
+		// return result
+		return (n - max_count);
 	}
-	
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
+		int arr[] = {1,2,3,4};
+		System.out.println(minimumOperation(arr,4));
+
+		// Input: 1 1 3
+		// Output: 
+		int arr1[] = {1,1,3};
+		System.out.println(minimumOperation(arr1,3));
+
 
 	}
 
